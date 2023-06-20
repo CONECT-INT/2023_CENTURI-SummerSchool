@@ -67,8 +67,7 @@ To get you started:
 
 # Dataset 2: Neural signals from macaque dorsomedial cortex during a time interval task
 
-*Original paper*: Meirhaeghe, Nicolas, Hansem Sohn, and Mehrdad
-Jazayeri. 2021. “A Precise and Adaptive Neural Mechanism for Predictive
+*Original paper*: Meirhaeghe, Sohn, and Jazayeri. 2021. “A Precise and Adaptive Neural Mechanism for Predictive
 Temporal Processing in the Frontal Cortex.” *Neuron* 109 (18):
 2995–3011.e5.
 
@@ -77,7 +76,7 @@ Temporal Processing in the Frontal Cortex.” *Neuron* 109 (18):
 *Task*: Two monkeys were trained to perform a time interval reproduction task known as ‘‘Ready-Set-Go’’ (see Figure above). The task requires animals to measure a sample time interval (ts) between two visual flashes (‘‘Ready’’ followed by ‘‘Set’’) and produce a matching interval (tp) after Set by initiating a saccade (‘‘Go’’) toward a visual target presented left or right of the fixation point. Animals performed this task in two conditions (Figure 1A, top right). When the fixation spot was red, ts was sampled from a ‘‘Short’’ uniform distribution (480–800 ms); when the fixation spot was blue, ts was sampled from a ‘‘Long’’ distribution (800–1200 ms). The distributions were alternated in short blocks of trials (5–20 trials), and intervals within each distribution were randomly sampled. The amount of reward monkeys received at the end of each trial decreased linearly with the magnitude of the relative error ((tp_ts)/ts).
 
 *Data format*: dataset2 contains 2 data structures, called monkeyG and monkeyH. Each structure contains 7 fields:
-•	spikes is a 3-D tensor [TxNxK] containing the spiking activity of N neurons, across K trials and T times points. Spikes are binned in a 1-ms window (why do you think 1-ms?) and include data between Ready and Set. Data were NaN-padded along the time dimension to match the duration of the longest interval of the Long distribution (1200 ms). Also note that trials in which a particular neuron was inactive (i.e., before its first detected spike and after its last detected spike) are marked as NaNs.
+•    spikes is a 3-D tensor [TxNxK] containing the spiking activity of N neurons, across K trials and T times points. Spikes are binned in a 1-ms window (why do you think 1-ms?) and include data between Ready and Set. Data were NaN-padded along the time dimension to match the duration of the longest interval of the Long distribution (1200 ms). Also note that trials in which a particular neuron was inactive (i.e., before its first detected spike and after its last detected spike) are marked as NaNs.
 •	 ts is a vector [Kx1] of sample intervals.
 •	 tp is a vector [Kx1] of produced intervals.
 •	 id_eye is a vector [Kx1] indicating if the animal responded using an eye (1) or hand (0) movement.
