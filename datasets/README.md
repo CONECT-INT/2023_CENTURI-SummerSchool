@@ -72,7 +72,28 @@ Jazayeri. 2021. “A Precise and Adaptive Neural Mechanism for Predictive
 Temporal Processing in the Frontal Cortex.” *Neuron* 109 (18):
 2995–3011.e5.
 
-*Task*: monkeys were trained to measure various time intervals and
-reproduce them by making saccadic eye movements
+<img width="453" alt="image" src="https://github.com/CONECT-INT/2023_CENTURI-SummerSchool/assets/25228402/fc761eaf-bd42-4782-a53b-41c2de5c5c97">
 
-Coming soon...
+*Task*: Two monkeys were trained to perform a time interval reproduction task known as ‘‘Ready-Set-Go’’ (see Figure above). The task requires animals to measure a sample time interval (ts) between two visual flashes (‘‘Ready’’ followed by ‘‘Set’’) and produce a matching interval (tp) after Set by initiating a saccade (‘‘Go’’) toward a visual target presented left or right of the fixation point. Animals performed this task in two conditions (Figure 1A, top right). When the fixation spot was red, ts was sampled from a ‘‘Short’’ uniform distribution (480–800 ms); when the fixation spot was blue, ts was sampled from a ‘‘Long’’ distribution (800–1200 ms). The distributions were alternated in short blocks of trials (5–20 trials), and intervals within each distribution were randomly sampled. The amount of reward monkeys received at the end of each trial decreased linearly with the magnitude of the relative error ((tp_ts)/ts).
+
+*Data format*: dataset2 contains 2 data structures, called monkeyG and monkeyH. Each structure contains 7 fields:
+•	spikes is a 3-D tensor [TxNxK] containing the spiking activity of N neurons, across K trials and T times points. Spikes are binned in a 1-ms window (why do you think 1-ms?) and include data between Ready and Set. Data were NaN-padded along the time dimension to match the duration of the longest interval of the Long distribution (1200 ms). Also note that trials in which a particular neuron was inactive (i.e., before its first detected spike and after its last detected spike) are marked as NaNs.
+•	 ts is a vector [Kx1] of sample intervals.
+•	 tp is a vector [Kx1] of produced intervals.
+•	 id_eye is a vector [Kx1] indicating if the animal responded using an eye (1) or hand (0) movement.
+•	 id_short is a vector [Kx1] indicating if the sample interval was sampled from the Short (1) or Long (0) distribution.
+•	 id_left is a vector [Kx1] indicating if the peripheral target was located left (1) or right (0) of the fixation point.
+•	 id_neuron is a vector [Nx2] containing the ID of each neuron (first column) and whether it is a well-isolated single unit (1) or a multi-unit (0).
+![image](https://github.com/CONECT-INT/2023_CENTURI-SummerSchool/assets/25228402/a02cc065-7df2-4015-90b1-34ec862c5112)
+
+*Goal*: we will neural activity during the measurement epoch of the task to study how temporal expectations (Short vs Long) impact neural dynamics.
+
+To get you started:
+
+1.	A good way to start analyzing dynamic neural activity is to visualize it… Make a summary plot with a subplot for each neuron showing the trial-averaged activity of the neuron as a function of time. Use 20-ms non-overlapping windows to bin the spikes. Additionally, you can smooth the data using a standard Gaussian kernel (SD=40 ms); use the smoother.m helper function if needed, or refer to https://matthew-brett.github.io/teaching/smoothing_intro.html#smoothing-with-the-kernel. Plot the Short and Long conditions on the same plot in different colors; and add circles at the different times of the Set. Use the bootstrap method to compute confidence intervals. What do you notice when comparing the dynamics in the Short vs Long condition? 
+2.	Now zooming out of individual neurons, let’s take a look at the dynamics of the population as a whole. Based on what you learned with dataset 1, you will reduce the dimensions of the data to visualize the dynamics. Use the helper function PCAneuralData.m to get you started. At the end of this step, you should have plotted the “neural trajectories” associated with each condition (Short and Long) in the same 3-D plot. If you use PCA, do you think it is the best method to explain variance in the time domain? Plot dots along the trajectory to show consecutive states separated by 20-ms; what do you notice in terms of speed along the two trajectories? 
+3.	Now that you have visualized the high-D data in low-D to get some intuitions, let’s be more quantitative. How could you quantify the speed differences you observed along the trajectories? Perform this calculation both in the 3-D PC space and in the full space (including all neurons). Is there a difference?
+4.	Moving away from trial-averages, let’s analyze finer features of the neural activity by focusing on individual spikes. Plot the Inter-Spike Interval distribution and coefficient of variations for every neuron. Is there a difference between the Short and Long condition? 
+5.	Now we will see if we can identify spiking patterns (or motifs) in the population of neurons. Start by looking for systematic delays between neurons by building the cross-correlogram for every pair of neurons.  
+
+The rest is coming soon...
