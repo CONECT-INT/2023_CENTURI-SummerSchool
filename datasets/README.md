@@ -84,7 +84,6 @@ Temporal Processing in the Frontal Cortex.” *Neuron* 109 (18):
 •	 id_short is a vector [Kx1] indicating if the sample interval was sampled from the Short (1) or Long (0) distribution.
 •	 id_left is a vector [Kx1] indicating if the peripheral target was located left (1) or right (0) of the fixation point.
 •	 id_neuron is a vector [Nx2] containing the ID of each neuron (first column) and whether it is a well-isolated single unit (1) or a multi-unit (0).
-![image](https://github.com/CONECT-INT/2023_CENTURI-SummerSchool/assets/25228402/a02cc065-7df2-4015-90b1-34ec862c5112)
 
 *Goal*: we will neural activity during the measurement epoch of the task to study how temporal expectations (Short vs Long) impact neural dynamics.
 
